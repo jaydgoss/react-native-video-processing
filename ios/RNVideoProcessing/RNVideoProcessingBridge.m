@@ -24,5 +24,6 @@ RCT_EXPORT_VIEW_PROPERTY(volume, NSNumber)
 RCT_EXPORT_VIEW_PROPERTY(resizeMode, NSString)
 RCT_EXPORT_VIEW_PROPERTY(onChange, RCTBubblingEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(cameraType, NSString)
+RCT_EXTERN_METHOD(setCurrentTimeViaManager:(nonnull NSNumber *)node val:(nonnull NSNumber *)val)
 
 @end

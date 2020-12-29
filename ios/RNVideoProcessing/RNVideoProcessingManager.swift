@@ -24,6 +24,13 @@ class RNVideoProcessingManager: RCTViewManager {
             "ScaleAspectFill": AVLayerVideoGravity.resizeAspectFill
         ]
     }
+    
+    @objc func setCurrentTimeViaManager(_ node:NSNumber, val:NSNumber) {
+      DispatchQueue.main.async {
+        let _RNVideoPlayer = self.bridge.uiManager.view(forReactTag: node) as! RNVideoPlayer
+        _RNVideoPlayer.setCurrentTime(val)
+      }
+    }
 
     override class func requiresMainQueueSetup() -> Bool {
         return true

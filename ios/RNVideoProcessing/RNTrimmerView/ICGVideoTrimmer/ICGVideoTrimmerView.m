@@ -280,15 +280,19 @@
             break;
         }
             
+        case UIGestureRecognizerStateEnded:
+        {
+            [self.delegate handleEnd:self didChangeLeftPosition:self.startTime rightPosition:self.endTime];
+            break;
+        }
+            
         default:
             break;
     }
-    
-    
 }
 
 - (void)moveRightOverlayView:(UIPanGestureRecognizer *)gesture
-{
+{   
     switch (gesture.state) {
         case UIGestureRecognizerStateBegan:
             self.rightStartPoint = [gesture locationInView:self];
@@ -315,6 +319,11 @@
             [self updateBorderFrames];
             [self notifyDelegate];
             
+            break;
+        }
+        case UIGestureRecognizerStateEnded:
+        {
+            [self.delegate handleEnd:self didChangeLeftPosition:self.startTime rightPosition:self.endTime];
             break;
         }
             

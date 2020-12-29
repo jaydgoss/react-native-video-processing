@@ -16,6 +16,7 @@ class RNTrimmerView: RCTView, ICGVideoTrimmerDelegate {
   var bridge: RCTBridge!
   @objc var onChange: RCTBubblingEventBlock?
   @objc var onTrackerMove: RCTBubblingEventBlock?
+  @objc var onEnd: RCTBubblingEventBlock?
   var _minLength: CGFloat? = nil
   var _maxLength: CGFloat? = nil
   var _thumbWidth: CGFloat? = nil
@@ -262,6 +263,11 @@ class RNTrimmerView: RCTView, ICGVideoTrimmerDelegate {
         onTrimmerPositionChange(startTime: startTime, endTime: endTime)
     }
     
+     func handleEnd(_ handleEnd: ICGVideoTrimmerView, didChangeLeftPosition startTime: CGFloat, rightPosition endTime: CGFloat) {
+        let event = ["startTime": startTime, "endTime": endTime]
+        self.onEnd!(event)
+    }
+
     public func trimmerView(_ trimmerView: ICGVideoTrimmerView, currentPosition currentTime: CGFloat) {
         print("current", currentTime)
         if onTrackerMove == nil {
