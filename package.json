@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/shahen94/react-native-video-processing.git"
+    "url": "https://github.com/jaydgoss/react-native-video-processing.git"
   },
   "keywords": [
     "react",
@@ -29,7 +29,7 @@
   "author": "Shahen Hovhannisyan <shahen.hovhannisyan.94@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/shahen94/react-native-video-processing/issues"
+    "url": "https://github.com/jaydgoss/react-native-video-processing/issues"
   },
   "jest": {
     "preset": "jest-react-native",
@@ -46,7 +46,7 @@
       "node_modules"
     ]
   },
-  "homepage": "https://github.com/shahen94/react-native-video-processing#readme",
+  "homepage": "https://github.com/jaydgoss/react-native-video-processing#readme",
   "dependencies": {
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
