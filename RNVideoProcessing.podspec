@@ -9,7 +9,7 @@ Pod::Spec.new do |s|
   s.license          = package['license']
   s.homepage         = package['homepage']
   s.authors          = package['author']
-  s.source           = { :git => 'https://github.com/shahen94/react-native-video-processing.git', :tag => s.version }
+  s.source           = { :git => 'https://github.com/jaydgoss/react-native-video-processing.git', :tag => s.version }
   s.source_files     = 'ios/**/*.{h,m,swift}'
   s.requires_arc = true
   s.platforms        = { :ios => "9.0"}
