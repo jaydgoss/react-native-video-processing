@@ -6,6 +6,7 @@
 
 import Foundation
 import AVFoundation
+import MediaPlayer
 //import GPUImage
 
 @objc(RNVideoPlayer)
@@ -15,6 +16,7 @@ class RNVideoPlayer: RCTView {
 
   var playerVolume: NSNumber = 0
   var player: AVPlayer! = nil
+  var session: AVAudioSession?
   var playerLayer: AVPlayerLayer?
 
   var playerCurrentTimeObserver: Any! = nil
@@ -366,6 +368,16 @@ class RNVideoPlayer: RCTView {
             self.onChange!(event)
         }
     }
+    
+    @objc func setPlaying() -> MPRemoteCommandHandlerStatus {
+        setPlay(1)
+        return MPRemoteCommandHandlerStatus.success
+    }
+    
+    @objc func setPaused() -> MPRemoteCommandHandlerStatus {
+        setPlay(0)
+        return MPRemoteCommandHandlerStatus.success
+    }
 
     // start player
     func startPlayer() {
@@ -376,6 +388,35 @@ class RNVideoPlayer: RCTView {
         if self.player == nil {
             player = AVPlayer()
             player.volume = playerVolume.floatValue
+            
+            session = AVAudioSession.sharedInstance()
+            
+            do {
+                try session?.setActive(true)
+                try session?.setCategory(AVAudioSession.Category.playback)
+                UIApplication.shared.beginReceivingRemoteControlEvents()
+                MPRemoteCommandCenter.shared().playCommand.addTarget(self, action: #selector(setPlaying))
+                MPRemoteCommandCenter.shared().pauseCommand.addTarget(self, action: #selector(setPaused))
+            } catch  let error as NSError {
+                print("Unable to activate audio session:  \(error.localizedDescription)")
+            }
+            
+            let nowPlayingInfoCenter = MPNowPlayingInfoCenter.default()
+            var nowPlayingInfo = nowPlayingInfoCenter.nowPlayingInfo ?? [String: Any]()
+
+            let title = "Fireside"
+//            let album = "album"
+//            let artworkData = Data()
+//            let image = UIImage(data: artworkData) ?? UIImage()
+//            let artwork = MPMediaItemArtwork(boundsSize: image.size, requestHandler: {  (_) -> UIImage in
+//             return image
+//            })
+
+            nowPlayingInfo[MPMediaItemPropertyTitle] = title
+//            nowPlayingInfo[MPMediaItemPropertyAlbumTitle] = album
+//            nowPlayingInfo[MPMediaItemPropertyArtwork] = artwork
+
+            nowPlayingInfoCenter.nowPlayingInfo = nowPlayingInfo
         }
         playerItem = AVPlayerItem(url: movieURL as! URL)
         player.replaceCurrentItem(with: playerItem)
